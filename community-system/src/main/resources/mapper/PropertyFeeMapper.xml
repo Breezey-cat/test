@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.PropertyFeeMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.PropertyFee">
+        SELECT property_fee.*,house.id as houseId,house.house_number as houseName,
+        building.id AS buildingId, building.code as buildingName
+        FROM property_fee
+        left join house on house.id=property_fee.house_id
+        LEFT JOIN building ON building.id = house.building_id
+        <include refid="queryConditions"/>
+        ORDER BY property_fee.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(property_fee.id)
+        FROM property_fee
+        left join house on house.id=property_fee.house_id
+        LEFT JOIN building ON building.id = house.building_id
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="query.type != null and query.type.trim() != ''">
+                AND property_fee.type = #{query.type}
+            </if>
+            <if test="query.paymentStatus != null and query.paymentStatus.trim() != ''">
+                AND property_fee.payment_status = #{query.paymentStatus}
+            </if>
+            <if test="query.userId != null">
+                AND property_fee.user_id = #{query.userId}
+            </if>
+            <if test="query.buildingName != null and query.buildingName.trim() != ''">
+                AND building.code  LIKE CONCAT('%', #{query.buildingName}, '%')
+            </if>
+            <if test="query.houseNumber != null and query.houseNumber.trim() != ''">
+                AND house.house_number  LIKE CONCAT('%', #{query.houseNumber}, '%')
+            </if>
+            <if test="query.houseIds != null and query.houseIds.size() > 0">
+                AND (
+                <foreach collection="query.houseId" item="houseId" separator=" OR ">
+                    property_fee.house_id = #{houseId}
+                </foreach>
+                )
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.PropertyFee" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO property_fee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">house_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="fee != null">fee,</if>
+            <if test="paymentStatus != null">payment_status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">#{houseId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="fee != null">#{fee},</if>
+            <if test="paymentStatus != null">#{paymentStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.PropertyFee">
+        UPDATE property_fee
+        <set>
+            <if test="houseId != null">
+             house_id = #{houseId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="fee != null">
+             fee = #{fee},
+            </if>
+            <if test="paymentStatus != null">
+             payment_status = #{paymentStatus},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM property_fee
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="removeByHouseIds">
+        DELETE FROM property_fee
+        WHERE house_id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

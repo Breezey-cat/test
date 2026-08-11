@@ -1,0 +1,7 @@
+{
+  "tests/test_login.py::TestLogin::test_user_login_success": true,
+  "tests/test_logout_and_security.py::TestLogoutAndSecurity::test_user_logout": true,
+  "tests/test_logout_and_security.py::TestLogoutAndSecurity::test_access_user_pages_without_login": true,
+  "tests/test_logout_and_security.py::TestLogoutAndSecurity::test_front_page_navigation_security": true,
+  "tests/test_locator_fix.py::TestSelectDropdown::test_select_popper_locator": true
+}

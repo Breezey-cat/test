@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.ForumMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.Forum">
+        SELECT forum.*
+        ,user.username AS username
+        ,user.avatar_url AS userAvatarUrl
+        FROM forum
+        LEFT JOIN user ON forum.user_id=user.id
+        <include refid="queryConditions"/>
+        ORDER BY forum.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(forum.id) FROM forum
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+          <if test="query.title != null and query.title.trim() != ''">
+            AND forum.title LIKE CONCAT('%', #{query.title}, '%')
+          </if>
+            <if test="query.userId != null">
+                AND forum.user_id = #{query.userId}
+            </if>
+          <if test="query.content != null and query.content.trim() != ''">
+            AND forum.content LIKE CONCAT('%', #{query.content}, '%')
+          </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.Forum" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO forum
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null">status,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null">#{status},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.Forum">
+        UPDATE forum
+        <set>
+            <if test="title != null">
+             title = #{title},
+            </if>
+            <if test="content != null">
+             content = #{content},
+            </if>
+            <if test="userId != null">
+             user_id = #{userId},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+            <if test="status != null">
+             status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM forum
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>    
+</mapper>

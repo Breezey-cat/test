@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.HouseMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.House">
+        SELECT house.*
+        FROM house
+        <include refid="queryConditions"/>
+        ORDER BY house.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(house.id) FROM house
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="query.houseNumber != null and query.houseNumber.trim() != ''">
+                AND house.house_number LIKE CONCAT('%', #{query.houseNumber}, '%')
+            </if>
+            <if test="query.status != null and query.status.trim() != ''">
+                AND house.status =  #{query.status}
+            </if>
+            <if test="query.buildingIds != null and query.buildingIds.size() > 0">
+                AND (
+                <foreach collection="query.buildingIds" item="buildingId" separator=" OR ">
+                    house.building_id = #{buildingId}
+                </foreach>
+                )
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.House" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO house
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildingId != null">building_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="houseNumber != null">house_number,</if>
+            <if test="area != null">area,</if>
+            <if test="houseType != null">house_type,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildingId != null">#{buildingId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="houseNumber != null">#{houseNumber},</if>
+            <if test="area != null">#{area},</if>
+            <if test="houseType != null">#{houseType},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.House">
+        UPDATE house
+        <set>
+            <if test="buildingId != null">
+             building_id = #{buildingId},
+            </if>
+            <if test="userId != null">
+             user_id = #{userId},
+            </if>
+            <if test="houseNumber != null">
+             house_number = #{houseNumber},
+            </if>
+            <if test="area != null">
+             area = #{area},
+            </if>
+            <if test="houseType != null">
+             house_type = #{houseType},
+            </if>
+            <if test="status != null">
+             status = #{status},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM house
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="removeByBuildingId">
+        DELETE FROM house
+        WHERE building_id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

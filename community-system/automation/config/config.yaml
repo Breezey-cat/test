@@ -1,0 +1,30 @@
+browser:
+  name: edge
+  fallback_order: ["edge", "chrome", "firefox"]
+  headless: true
+  window_size: "1920,1080"
+  page_load_timeout: 30
+  implicit_wait: 10
+  explicit_wait: 15
+
+environment:
+  base_url: "http://localhost:5173"
+  api_url: "http://localhost:1000"
+  admin_path: "/admin"
+  login_path: "/login"
+  register_path: "/register"
+
+paths:
+  screenshots: "screenshots"
+  logs: "logs"
+  reports: "reports"
+  test_data: "data/test_data.yaml"
+  test_accounts: "data/test_accounts.yaml"
+
+test:
+  retry_count: 1
+  parallel_workers: 1
+  tags:
+    smoke: "smoke"
+    regression: "regression"
+    critical: "critical"

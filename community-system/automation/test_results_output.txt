@@ -1,0 +1,238 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Administrator\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.3', 'Platform': 'Windows-11-10.0.26200-SP0', 'Packages': {'pytest': '9.1.1', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.2.0', 'metadata': '3.1.1', 'rerunfailures': '16.4', 'xdist': '3.8.0'}, 'JAVA_HOME': 'D:\\soft\\OracleJDK\\jdk21\\jdk-21.0.10'}
+rootdir: D:\community-system\community-system\automation
+configfile: pytest.ini
+plugins: html-4.2.0, metadata-3.1.1, rerunfailures-16.4, xdist-3.8.0
+collecting ... collected 49 items
+
+tests/test_announcement.py::TestAnnouncement::test_announcement_list_displayed PASSED [  2%]
+tests/test_announcement.py::TestAnnouncement::test_search_announcement_by_title PASSED [  4%]
+tests/test_announcement.py::TestAnnouncement::test_search_announcement_by_type SKIPPED [  6%]
+tests/test_announcement.py::TestAnnouncement::test_add_announcement PASSED [  8%]
+tests/test_announcement.py::TestAnnouncement::test_edit_announcement PASSED [ 10%]
+tests/test_announcement.py::TestAnnouncement::test_delete_announcement PASSED [ 12%]
+tests/test_announcement.py::TestAnnouncement::test_view_announcement PASSED [ 14%]
+tests/test_announcement.py::TestAnnouncement::test_reset_search PASSED   [ 16%]
+tests/test_announcement.py::TestAnnouncement::test_add_announcement_with_important PASSED [ 18%]
+tests/test_announcement.py::TestAnnouncement::test_add_announcement_cancel PASSED [ 20%]
+tests/test_user_manage.py::TestUserManage::test_user_list_displayed PASSED [ 22%]
+tests/test_user_manage.py::TestUserManage::test_search_user_by_username PASSED [ 24%]
+tests/test_user_manage.py::TestUserManage::test_search_user_by_status PASSED [ 26%]
+tests/test_user_manage.py::TestUserManage::test_add_user SKIPPED (Us...) [ 28%]
+tests/test_user_manage.py::TestUserManage::test_edit_user PASSED         [ 30%]
+tests/test_user_manage.py::TestUserManage::test_delete_user SKIPPED      [ 32%]
+tests/test_user_manage.py::TestUserManage::test_toggle_user_status PASSED [ 34%]
+tests/test_user_manage.py::TestUserManage::test_reset_search PASSED      [ 36%]
+tests/test_user_manage.py::TestUserManage::test_add_user_cancel PASSED   [ 38%]
+tests/test_repair_manage.py::TestRepairManage::test_repair_list_displayed PASSED [ 40%]
+tests/test_repair_manage.py::TestRepairManage::test_search_repair_by_status PASSED [ 42%]
+tests/test_repair_manage.py::TestRepairManage::test_search_repair_by_urgency PASSED [ 44%]
+tests/test_repair_manage.py::TestRepairManage::test_handle_repair PASSED [ 46%]
+tests/test_repair_manage.py::TestRepairManage::test_complete_repair SKIPPED [ 48%]
+tests/test_repair_manage.py::TestRepairManage::test_add_repair SKIPPED   [ 51%]
+tests/test_repair_manage.py::TestRepairManage::test_view_repair PASSED   [ 53%]
+tests/test_repair_manage.py::TestRepairManage::test_reset_search PASSED  [ 55%]
+tests/test_repair_manage.py::TestRepairManage::test_search_combined_filters PASSED [ 57%]
+tests/test_property_fee.py::TestPropertyFee::test_fee_list_displayed PASSED [ 59%]
+tests/test_property_fee.py::TestPropertyFee::test_search_fee_by_building PASSED [ 61%]
+tests/test_property_fee.py::TestPropertyFee::test_search_fee_by_status PASSED [ 63%]
+tests/test_property_fee.py::TestPropertyFee::test_add_fee PASSED         [ 65%]
+tests/test_property_fee.py::TestPropertyFee::test_edit_fee PASSED        [ 67%]
+tests/test_property_fee.py::TestPropertyFee::test_delete_fee PASSED      [ 69%]
+tests/test_property_fee.py::TestPropertyFee::test_pay_fee SKIPPED (P...) [ 71%]
+tests/test_property_fee.py::TestPropertyFee::test_reset_search PASSED    [ 73%]
+tests/test_property_fee.py::TestPropertyFee::test_add_fee_with_boundary_amount PASSED [ 75%]
+tests/test_property_fee.py::TestPropertyFee::test_add_fee_negative_amount PASSED [ 77%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_admin_logout PASSED [ 79%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_user_logout FAILED [ 81%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_access_admin_without_login PASSED [ 83%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_access_user_pages_without_login FAILED [ 85%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_session_expiry PASSED [ 87%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_logout_redirect PASSED [ 89%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_login_then_logout_then_relogin PASSED [ 91%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_multiple_logout PASSED [ 93%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_csrf_protection PASSED [ 95%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_admin_menu_access_control PASSED [ 97%]
+tests/test_logout_and_security.py::TestLogoutAndSecurity::test_front_page_navigation_security FAILED [100%]
+
+================================== FAILURES ===================================
+___________________ TestLogoutAndSecurity.test_user_logout ____________________
+tests\test_logout_and_security.py:25: in test_user_logout
+    front_page.logout()
+pages\front_page.py:109: in logout
+    self.click(*self.USER_DROPDOWN_TRIGGER)
+pages\base_page.py:54: in click
+    elem = self._wait(timeout).until(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python312\Lib\site-packages\selenium\webdriver\support\wait.py:121: in until
+    raise TimeoutException(message, screen, stacktrace)
+E   selenium.common.exceptions.TimeoutException: Message: 
+E   Stacktrace:
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a0375+e3f5]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a03d4+e454]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d9e5d3e2+6cb462]
+E   	msedgedriver!(No symbol) [0x7ff6d919f672]
+E   	msedgedriver!(No symbol) [0x7ff6d919f8e5]
+E   	msedgedriver!(No symbol) [0x7ff6d91dd977]
+E   	msedgedriver!(No symbol) [0x7ff6d9196287]
+E   	msedgedriver!(No symbol) [0x7ff6d91db638]
+E   	msedgedriver!(No symbol) [0x7ff6d9195acc]
+E   	msedgedriver!(No symbol) [0x7ff6d9194d26]
+E   	msedgedriver!(No symbol) [0x7ff6d91958f3]
+E   	msedgedriver!(No symbol) [0x7ff6d93f0eeb]
+E   	msedgedriver!(No symbol) [0x7ff6d93ed304]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97cd2c5+3b345]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97bbe41+29ec1]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97c4786+32806]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a7d34+15db4]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a7e55+15ed5]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97943c3+2443]
+E   	KERNEL32!BaseThreadInitThunk [0x7ffd1bdbe957+17]
+E   	ntdll!RtlUserThreadStart [0x7ffd1d72ad6c+2c]
+---------------------------- Captured stdout setup ----------------------------
+2026-08-06 20:24:27 - automation - INFO - 尝试创建 edge 浏览器驱动...
+2026-08-06 20:24:27 - automation - INFO - edge 驱动创建成功, 超时: 30s
+----------------------------- Captured log setup ------------------------------
+INFO     automation:conftest.py:34 尝试创建 edge 浏览器驱动...
+INFO     automation:conftest.py:38 edge 驱动创建成功, 超时: 30s
+---------------------------- Captured stdout call -----------------------------
+2026-08-06 20:24:28 - automation - INFO - 打开URL: http://localhost:5173/login
+2026-08-06 20:24:28 - automation - INFO - 已打开登录页面
+2026-08-06 20:24:29 - automation - INFO - 输入用户名: testuser
+2026-08-06 20:24:29 - automation - INFO - 输入密码
+2026-08-06 20:24:29 - automation - INFO - 选择用户类型: USER
+2026-08-06 20:24:29 - automation - INFO - 点击登录按钮
+2026-08-06 20:24:29 - automation - INFO - 尝试登录: testuser (USER)
+2026-08-06 20:24:54 - automation - WARNING - 无法点击元素: css selector=.el-dropdown
+------------------------------ Captured log call ------------------------------
+INFO     automation:base_page.py:218 打开URL: http://localhost:5173/login
+INFO     automation:login_page.py:29 已打开登录页面
+DEBUG    automation:base_page.py:69 输入文本到 css selector=input[placeholder="请输入账号"]: testuser...
+INFO     automation:login_page.py:41 输入用户名: testuser
+DEBUG    automation:base_page.py:69 输入文本到 css selector=input[placeholder="请输入密码"]: 123456...
+INFO     automation:login_page.py:45 输入密码
+DEBUG    automation:base_page.py:58 点击元素: css selector=.el-select__wrapper
+DEBUG    automation:base_page.py:58 点击元素: xpath=//li[contains(@class, "el-select-dropdown__item")]//span[text()="用户"]
+INFO     automation:login_page.py:54 选择用户类型: USER
+DEBUG    automation:base_page.py:58 点击元素: css selector=button.el-button--primary
+INFO     automation:login_page.py:58 点击登录按钮
+INFO     automation:login_page.py:87 尝试登录: testuser (USER)
+WARNING  automation:base_page.py:60 无法点击元素: css selector=.el-dropdown
+-------------------------- Captured stdout teardown ---------------------------
+2026-08-06 20:24:57 - automation - INFO - 浏览器已关闭
+---------------------------- Captured log teardown ----------------------------
+INFO     automation:conftest.py:95 浏览器已关闭
+_________ TestLogoutAndSecurity.test_access_user_pages_without_login __________
+tests\test_logout_and_security.py:45: in test_access_user_pages_without_login
+    assert "/login" in current_url or "/register" in current_url, \
+E   AssertionError: 未登录访问个人中心应重定向到登录页
+E   assert ('/login' in 'http://localhost:5173/profile' or '/register' in 'http://localhost:5173/profile')
+---------------------------- Captured stdout setup ----------------------------
+2026-08-06 20:25:02 - automation - INFO - 尝试创建 edge 浏览器驱动...
+2026-08-06 20:25:02 - automation - INFO - edge 驱动创建成功, 超时: 30s
+----------------------------- Captured log setup ------------------------------
+INFO     automation:conftest.py:34 尝试创建 edge 浏览器驱动...
+INFO     automation:conftest.py:38 edge 驱动创建成功, 超时: 30s
+---------------------------- Captured stdout call -----------------------------
+2026-08-06 20:25:02 - automation - INFO - 打开URL: http://localhost:5173/profile
+2026-08-06 20:25:03 - automation - INFO - 未登录访问个人中心URL: http://localhost:5173/profile
+------------------------------ Captured log call ------------------------------
+INFO     automation:base_page.py:218 打开URL: http://localhost:5173/profile
+INFO     automation:test_logout_and_security.py:44 未登录访问个人中心URL: http://localhost:5173/profile
+-------------------------- Captured stdout teardown ---------------------------
+2026-08-06 20:25:06 - automation - INFO - 浏览器已关闭
+---------------------------- Captured log teardown ----------------------------
+INFO     automation:conftest.py:95 浏览器已关闭
+__________ TestLogoutAndSecurity.test_front_page_navigation_security __________
+tests\test_logout_and_security.py:107: in test_front_page_navigation_security
+    front_page.navigate_to_profile()
+pages\front_page.py:74: in navigate_to_profile
+    self.click(*self.NAV_PROFILE)
+pages\base_page.py:54: in click
+    elem = self._wait(timeout).until(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python312\Lib\site-packages\selenium\webdriver\support\wait.py:121: in until
+    raise TimeoutException(message, screen, stacktrace)
+E   selenium.common.exceptions.TimeoutException: Message: 
+E   Stacktrace:
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a0375+e3f5]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a03d4+e454]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d9e5d3e2+6cb462]
+E   	msedgedriver!(No symbol) [0x7ff6d919f672]
+E   	msedgedriver!(No symbol) [0x7ff6d919f8e5]
+E   	msedgedriver!(No symbol) [0x7ff6d91dd977]
+E   	msedgedriver!(No symbol) [0x7ff6d9196287]
+E   	msedgedriver!(No symbol) [0x7ff6d91db638]
+E   	msedgedriver!(No symbol) [0x7ff6d9195acc]
+E   	msedgedriver!(No symbol) [0x7ff6d9194d26]
+E   	msedgedriver!(No symbol) [0x7ff6d91958f3]
+E   	msedgedriver!(No symbol) [0x7ff6d93f0eeb]
+E   	msedgedriver!(No symbol) [0x7ff6d93ed304]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97cd2c5+3b345]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97bbe41+29ec1]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97c4786+32806]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a7d34+15db4]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97a7e55+15ed5]
+E   	msedgedriver!GetHandleVerifier [0x7ff6d97943c3+2443]
+E   	KERNEL32!BaseThreadInitThunk [0x7ffd1bdbe957+17]
+E   	ntdll!RtlUserThreadStart [0x7ffd1d72ad6c+2c]
+---------------------------- Captured stdout setup ----------------------------
+2026-08-06 20:26:33 - automation - INFO - 尝试创建 edge 浏览器驱动...
+2026-08-06 20:26:34 - automation - INFO - edge 驱动创建成功, 超时: 30s
+----------------------------- Captured log setup ------------------------------
+INFO     automation:conftest.py:34 尝试创建 edge 浏览器驱动...
+INFO     automation:conftest.py:38 edge 驱动创建成功, 超时: 30s
+---------------------------- Captured stdout call -----------------------------
+2026-08-06 20:26:34 - automation - INFO - 打开URL: http://localhost:5173/login
+2026-08-06 20:26:34 - automation - INFO - 已打开登录页面
+2026-08-06 20:26:35 - automation - INFO - 输入用户名: testuser
+2026-08-06 20:26:35 - automation - INFO - 输入密码
+2026-08-06 20:26:36 - automation - INFO - 选择用户类型: USER
+2026-08-06 20:26:36 - automation - INFO - 点击登录按钮
+2026-08-06 20:26:36 - automation - INFO - 尝试登录: testuser (USER)
+2026-08-06 20:27:00 - automation - WARNING - 无法点击元素: xpath=//div[contains(@class, "el-menu")]//span[text()="个人中心"]
+------------------------------ Captured log call ------------------------------
+INFO     automation:base_page.py:218 打开URL: http://localhost:5173/login
+INFO     automation:login_page.py:29 已打开登录页面
+DEBUG    automation:base_page.py:69 输入文本到 css selector=input[placeholder="请输入账号"]: testuser...
+INFO     automation:login_page.py:41 输入用户名: testuser
+DEBUG    automation:base_page.py:69 输入文本到 css selector=input[placeholder="请输入密码"]: 123456...
+INFO     automation:login_page.py:45 输入密码
+DEBUG    automation:base_page.py:58 点击元素: css selector=.el-select__wrapper
+DEBUG    automation:base_page.py:58 点击元素: xpath=//li[contains(@class, "el-select-dropdown__item")]//span[text()="用户"]
+INFO     automation:login_page.py:54 选择用户类型: USER
+DEBUG    automation:base_page.py:58 点击元素: css selector=button.el-button--primary
+INFO     automation:login_page.py:58 点击登录按钮
+INFO     automation:login_page.py:87 尝试登录: testuser (USER)
+WARNING  automation:base_page.py:60 无法点击元素: xpath=//div[contains(@class, "el-menu")]//span[text()="个人中心"]
+-------------------------- Captured stdout teardown ---------------------------
+2026-08-06 20:27:03 - automation - INFO - 浏览器已关闭
+---------------------------- Captured log teardown ----------------------------
+INFO     automation:conftest.py:95 浏览器已关闭
+============================== warnings summary ===============================
+tests\test_announcement.py:16
+  D:\community-system\community-system\automation\tests\test_announcement.py:16: PytestUnknownMarkWarning: Unknown pytest.mark.regression - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.regression
+
+tests\test_user_manage.py:16
+  D:\community-system\community-system\automation\tests\test_user_manage.py:16: PytestUnknownMarkWarning: Unknown pytest.mark.regression - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.regression
+
+tests\test_repair_manage.py:16
+  D:\community-system\community-system\automation\tests\test_repair_manage.py:16: PytestUnknownMarkWarning: Unknown pytest.mark.regression - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.regression
+
+tests\test_property_fee.py:16
+  D:\community-system\community-system\automation\tests\test_property_fee.py:16: PytestUnknownMarkWarning: Unknown pytest.mark.regression - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.regression
+
+tests\test_logout_and_security.py:8
+  D:\community-system\community-system\automation\tests\test_logout_and_security.py:8: PytestUnknownMarkWarning: Unknown pytest.mark.smoke - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.smoke
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_logout_and_security.py::TestLogoutAndSecurity::test_user_logout
+FAILED tests/test_logout_and_security.py::TestLogoutAndSecurity::test_access_user_pages_without_login
+FAILED tests/test_logout_and_security.py::TestLogoutAndSecurity::test_front_page_navigation_security
+======= 3 failed, 40 passed, 6 skipped, 5 warnings in 756.86s (0:12:36) =======

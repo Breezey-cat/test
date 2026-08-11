@@ -1,0 +1,60 @@
+:root {
+    --font-light: font-light;
+    --font-normal: font-normal;
+    --font-bold: font-bold;
+    --font-title: font-title;
+    --font-medium: font-medium;
+    --mg-title-font: var(--font-title);
+    --mg-title-size: 34px;
+    --mg-title-size-mobile: 20px;
+    --mg-title-align: left;
+    --mg-title-line-height: 1.5;
+    --mg-title-line-height-mobile: 1.5;
+    --mg-title-letter-spacing: 0;
+    --mg-title-letter-spacing-mobile: 0;
+    --mg-sub-title-font: var(--font-medium);
+    --mg-sub-title-size: 16px;
+    --mg-sub-title-size-mobile: 14px;
+    --mg-sub-title-align: left;
+    --mg-sub-title-line-height: 1.5;
+    --mg-sub-title-line-height-mobile: 1.5;
+    --mg-button-font: var(--font-normal);
+
+    /* 新的配色方案 */
+    --color-success: #28a745;
+    --color-success-light-9: rgba(40, 167, 69, 0.287);
+    --color-error: #dc3545;
+    --color-error-light-9: rgba(220, 53, 69, 0.287);
+    --color-warning: #ffc107;
+    --color-warning-light-9: rgba(255, 193, 7, 0.287);
+    --color-link: #007bff;
+    --color-title: #1a73e8; /* 更亮的蓝色 */
+    --color-text: #4a4a4a; /* 更亮的灰色 */
+    --color-label: #7f8c8d;
+    --color-info: #6c757d;
+    --color-info-light-9: rgba(108, 117, 125, 0.287);
+    --color-disable: #bdc3c7;
+    --color-holder: #95a5a6;
+    --mg-title-color: var(--color-title);
+    --mg-button-color: var(--g-btn-color);
+    --mg-button-background: var(--g-btn-background);
+    --color-theme: var(--g-btn-background);
+    --color-theme-light-9: rgba(0, 123, 255, 0.287);
+    --color-hover: #0056b3;
+    --color-border: #dfe6e9;
+    --color-border-light: rgba(223, 230, 233, 0.807);
+
+    /* 全局颜色 */
+    --g-primary-color: #1a73e8; /* 更亮的蓝色 */
+    --g-text-color: #4a4a4a; /* 更亮的灰色 */
+    --g-tip-color: #7f8c8d;
+    --g-btn-color: #fff;
+    --g-btn-background: #007bff;
+    --g-bg-color: #fff;
+
+    /* 菜单颜色 */
+    --menu-hover-color: #0056b3;
+    --menu-hover-bg: rgba(0, 123, 255, 0.2);
+    --menu-bg-color: rgba(44, 62, 80, 1);
+    --dropdown-menu-bg: #f8f9fa;
+}

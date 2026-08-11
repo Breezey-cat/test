@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.BuildingMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.Building">
+        SELECT building.*
+        FROM building
+        <include refid="queryConditions"/>
+        ORDER BY building.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(building.id) FROM building
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+          <if test="query.code != null and query.code.trim() != ''">
+            AND building.code LIKE CONCAT('%', #{query.code}, '%')
+          </if>
+          <if test="query.type != null and query.type.trim() != ''">
+            AND building.type = #{query.type}
+          </if>
+            <if test="query.status != null and query.status.trim() != ''">
+                AND building.status = #{query.status}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.Building" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO building
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="remark != null">remark,</if>
+            <if test="address != null">address,</if>
+            <if test="number != null">number,</if>
+            <if test="elementNumber != null">element_number,</if>
+            <if test="houseNumber != null">house_number,</if>
+            <if test="type != null">type,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="address != null">#{address},</if>
+            <if test="number != null">#{number},</if>
+            <if test="elementNumber != null">#{elementNumber},</if>
+            <if test="houseNumber != null">#{houseNumber},</if>
+            <if test="type != null">#{type},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.Building">
+        UPDATE building
+        <set>
+            <if test="code != null">
+             code = #{code},
+            </if>
+            <if test="remark != null">
+             remark = #{remark},
+            </if>
+            <if test="address != null">
+             address = #{address},
+            </if>
+            <if test="number != null">
+             number = #{number},
+            </if>
+            <if test="elementNumber != null">
+             element_number = #{elementNumber},
+            </if>
+            <if test="houseNumber != null">
+             house_number = #{houseNumber},
+            </if>
+            <if test="type != null">
+             type = #{type},
+            </if>
+            <if test="status != null">
+             status = #{status},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM building
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

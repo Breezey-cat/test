@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.ParkingLotMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.ParkingLot">
+        SELECT parking_lot.*
+        FROM parking_lot
+        <include refid="queryConditions"/>
+        ORDER BY parking_lot.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(parking_lot.id) FROM parking_lot
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+          <if test="query.name != null and query.name.trim() != ''">
+            AND parking_lot.name LIKE CONCAT('%', #{query.name}, '%')
+          </if>
+          <if test="query.address != null and query.address.trim() != ''">
+            AND parking_lot.address LIKE CONCAT('%', #{query.address}, '%')
+          </if>
+            <if test="query.status != null and query.status.trim() != ''">
+                AND parking_lot.status  = #{query.status}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.ParkingLot" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO parking_lot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="address != null">address,</if>
+            <if test="parkingNum != null">parking_num,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="address != null">#{address},</if>
+            <if test="parkingNum != null">#{parkingNum},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.ParkingLot">
+        UPDATE parking_lot
+        <set>
+            <if test="name != null">
+             name = #{name},
+            </if>
+            <if test="address != null">
+             address = #{address},
+            </if>
+            <if test="parkingNum != null">
+             parking_num = #{parkingNum},
+            </if>
+            <if test="status != null">
+             status = #{status},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM parking_lot
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>    
+</mapper>

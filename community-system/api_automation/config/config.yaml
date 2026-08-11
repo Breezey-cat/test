@@ -1,0 +1,36 @@
+# 接口自动化测试环境配置
+environment:
+  base_url: "http://localhost:1000"
+  timeout: 10
+  retry_count: 1
+
+# 测试账号
+accounts:
+  admin:
+    username: "admin"
+    password: "123456"
+    type: "ADMIN"
+  user:
+    username: "user1"
+    password: "123456"
+    type: "USER"
+  user2:
+    username: "user2"
+    password: "123456"
+    type: "USER"
+  disabled_user:
+    username: "user3"
+    password: "123456"
+    type: "USER"
+
+# 性能测试参数
+performance:
+  max_response_time: 500        # 普通接口最大响应时间(ms)
+  max_list_response_time: 1000  # 列表接口最大响应时间(ms)
+  max_upload_response_time: 3000 # 上传接口最大响应时间(ms)
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/api_test.log"

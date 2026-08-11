@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.ParkingSpaceMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.ParkingSpace">
+        SELECT parking_space.*
+        FROM parking_space
+        <include refid="queryConditions"/>
+        ORDER BY parking_space.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(parking_space.id) FROM parking_space
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="query.spaceNumber != null and query.spaceNumber.trim() != ''">
+                AND parking_space.space_number LIKE CONCAT('%', #{query.spaceNumber}, '%')
+            </if>
+            <if test="query.status != null and query.status.trim() != ''">
+                AND parking_space.status = #{query.status}
+            </if>
+            <if test="query.type != null and query.type.trim() != ''">
+                AND parking_space.type = #{query.type}
+            </if>
+            <if test="query.parkingLotIds != null and query.parkingLotIds.size() > 0">
+                AND (
+                <foreach collection="query.parkingLotIds" item="parkingLotId" separator=" OR ">
+                    parking_space.parking_lot_id = #{parkingLotId}
+                </foreach>
+                )
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.ParkingSpace" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO parking_space
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parkingLotId != null">parking_lot_id,</if>
+            <if test="spaceNumber != null">space_number,</if>
+            <if test="type != null">type,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="price != null">price,</if>
+            <if test="address != null">address,</if>
+            <if test="monthPrice != null">month_price,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null">status,</if>
+            <if test="remake != null">remake,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parkingLotId != null">#{parkingLotId},</if>
+            <if test="spaceNumber != null">#{spaceNumber},</if>
+            <if test="type != null">#{type},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="address != null">#{address},</if>
+            <if test="monthPrice != null">#{monthPrice},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remake != null">#{remake},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.ParkingSpace">
+        UPDATE parking_space
+        <set>
+            <if test="parkingLotId != null">
+             parking_lot_id = #{parkingLotId},
+            </if>
+            <if test="spaceNumber != null">
+             space_number = #{spaceNumber},
+            </if>
+            <if test="type != null">
+             type = #{type},
+            </if>
+            <if test="userId != null">
+             user_id = #{userId},
+            </if>
+            <if test="price != null">
+             price = #{price},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="monthPrice != null">
+             month_price = #{monthPrice},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+            <if test="status != null">
+             status = #{status},
+            </if>
+            <if test="remake != null">
+                remake = #{remake},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM parking_space
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>    
+</mapper>

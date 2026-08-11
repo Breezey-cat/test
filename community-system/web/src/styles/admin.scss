@@ -1,0 +1,8 @@
+.admin-wrapper{    
+    .el-aside {
+        background-color: var(--menu-bg-color, rgba(36, 47, 54, 1)) !important;
+    }
+    .el-menu-item.is-active, .el-menu--horizontal>.el-menu-item.is-active {
+        border-bottom: none !important;
+    }
+}

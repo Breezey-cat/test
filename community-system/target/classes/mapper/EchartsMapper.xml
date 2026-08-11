@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.EchartsMapper">
+    <!-- 小区居民入住情况 -->
+    <select id="residentOccupancyRate"  resultType="Map">
+        SELECT
+            a.CODE as name,
+            c.status as status,
+            COUNT(b.id) houseCount,
+            COUNT(c.status) countStatus
+        FROM
+            building a LEFT JOIN
+            house b ON b.building_id = a.id
+                       LEFT JOIN house c on c.building_id = a.id
+        WHERE 1=1
+        GROUP BY a.code,c.status
+    </select>
+    <!-- 小区停车状况 parkingCondition -->
+    <select id="parkingCondition"  resultType="Map">
+        SELECT
+            STATUS as name,
+            count(STATUS) as value
+        FROM
+            parking_space
+        WHERE
+            1 = 1
+        GROUP BY
+            STATUS
+    </select>
+    <!-- 物业费收缴情况 CollectionOfPropertyFee -->
+    <select id="collectionOfPropertyFee"  resultType="map">
+        SELECT
+            payment_status as name,
+            count( payment_status ) as value
+        FROM
+            property_fee
+        WHERE
+            1 = 1
+        GROUP BY
+            payment_status
+    </select>
+    <!-- 水费收费情况 collectionOfWaterCharge -->
+    <select id="collectionOfWaterCharge"  resultType="Map">
+        SELECT
+            payment_status as name,
+            count( payment_status ) as value
+        FROM
+            utility_bill_fee
+        WHERE
+            1 = 1
+          and type = '水费'
+        GROUP BY
+            payment_status
+    </select>
+    <!-- 电费收费情况 -->
+    <select id="collectionOfElectricityCharge"  resultType="Map">
+        SELECT
+            payment_status as name,
+            count( payment_status ) as value
+        FROM
+            utility_bill_fee
+        WHERE
+            1 = 1
+          and type = '电费'
+        GROUP BY
+            payment_status
+    </select>
+    <!-- 报修处理效率情况  -->
+    <select id="maintenanceProcessingEfficiency"  resultType="Map">
+        SELECT
+            STATUS as name,
+            count(STATUS) as value
+        FROM
+            repair
+        WHERE
+            1 = 1
+        GROUP BY
+            STATUS
+    </select>
+
+
+</mapper>

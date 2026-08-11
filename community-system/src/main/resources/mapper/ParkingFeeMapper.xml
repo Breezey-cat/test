@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.platform.mapper.ParkingFeeMapper">
+    <!-- 分页查询 -->
+    <select id="queryPage"  resultType="com.project.platform.entity.ParkingFee">
+        SELECT parking_fee.*,parking_space_id
+        ,parking_space.space_number AS parkingSpaceName
+        FROM parking_fee
+        left join parking_space on parking_space.id=parking_fee.parking_space_id
+        <include refid="queryConditions"/>
+        ORDER BY parking_fee.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="queryCount"  resultType="int">
+        SELECT count(parking_fee.id)
+        FROM parking_fee
+        left join parking_space on parking_space.id=parking_fee.parking_space_id
+        <include refid="queryConditions"/>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="query.paymentStatus != null and query.paymentStatus.trim() != ''">
+                AND parking_fee.payment_status = #{query.paymentStatus}
+            </if>
+            <if test="query.parkingSpaceNumber != null and query.parkingSpaceNumber.trim() != ''">
+                AND parking_space.space_number  LIKE CONCAT('%', #{query.parkingSpaceNumber}, '%')
+            </if>
+            <if test="query.userId != null">
+                AND parking_fee.user_id = #{query.userId}
+            </if>
+            <if test="query.parkingSpaceIds != null and query.parkingSpaceIds.size() > 0">
+                AND (
+                <foreach collection="query.parkingSpaceIds" item="parkingSpaceIds" separator=" OR ">
+                    parking_fee.parking_space_id = #{parkingSpaceId}
+                </foreach>
+                )
+            </if>
+        </where>
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.project.platform.entity.ParkingFee" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO parking_fee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parkingSpaceId != null">parking_space_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="fee != null">fee,</if>
+            <if test="paymentStatus != null">payment_status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parkingSpaceId != null">#{parkingSpaceId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="fee != null">#{fee},</if>
+            <if test="paymentStatus != null">#{paymentStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+
+
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.project.platform.entity.ParkingFee">
+        UPDATE parking_fee
+        <set>
+            <if test="parkingSpaceId != null">
+             parking_space_id = #{parkingSpaceId},
+            </if>
+            <if test="userId != null">
+             user_id = #{userId},
+            </if>
+            <if test="fee != null">
+             fee = #{fee},
+            </if>
+            <if test="paymentStatus != null">
+             payment_status = #{paymentStatus},
+            </if>
+            <if test="createTime != null">
+             create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 根据ID列表删除 -->
+    <delete id="removeByIds">
+        DELETE FROM parking_fee
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
